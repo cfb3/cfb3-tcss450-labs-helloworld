@@ -58,13 +58,31 @@ router.get("/", (request, response) => {
 router.post("/", (request, response) => {
 
     const matrix = request.body.matrix
+    const factorNames = request.body.factorNames
+    const factor = request.body.factor
+    const maxLoopLength = request.body.maxLoopLength
+    const algorithm = algorithmMap.get(request.body.algorithmName)(factorNames, matrix)
+    const maxLoopCount = request.body.maxLoopCount
     
-    let sum = PFMS.sum(matrix)
-
-    response.set('Access-Control-Allow-Origin', '*')
-    response.send({
-        message: `The sum is ${sum}`
-    })
+    PFMS.uniqueFBLoops(
+            matrix,
+            factorNames,
+            factor,
+            maxLoopLength,
+            algorithm,
+            maxLoopCount)
+        .then(result => {
+            response.set('Access-Control-Allow-Origin', '*')
+            response.send({
+                message: `The sum is ${sum}`
+            })
+        })
+        .catch(error => {
+            response.set('Access-Control-Allow-Origin', '*')
+            response.send({
+                error: error
+            })
+        })
 })
 
 
