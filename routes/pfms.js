@@ -35,7 +35,6 @@ router.get("/", (request, response) => {
             matrix,
             factorNames,
             factor,
-            loopLength,
             maxLoopLength,
             algorithm,
             maxLoopCount)
