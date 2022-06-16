@@ -16,7 +16,6 @@ const logger = require('cfb3-log-package')
 router.get("/", (request, response) => {
 
     response.set('Access-Control-Allow-Origin', '*')
-
     response.send({
         message: "Hello, you sent a GET request"
     })

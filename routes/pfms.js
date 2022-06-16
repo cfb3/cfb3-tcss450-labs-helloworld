@@ -15,6 +15,18 @@ const PFMS = require('pfms')
  *
  * @apiSuccess {String} message Hello World message
  */
+router.get("/", (request, response) => {
+
+    const matrix = request.body.matrix
+    
+    let sum = PFMS.sum(matrix)
+
+    response.set('Access-Control-Allow-Origin', '*')
+    response.send({
+        message: `The sum is ${sum}`
+    })
+})
+
 router.post("/", (request, response) => {
 
     const matrix = request.body.matrix
