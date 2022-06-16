@@ -15,13 +15,7 @@ const logger = require('cfb3-log-package')
  */
 router.get("/", (request, response) => {
 
-    logger("hello.js/get", "Log message")
-    logger.verbose("hello.js/get", "keep it up buttercup")
-    logger.info("hello.js/get", "FYI")
-    logger.debug("hello.js/get", "Got here 1")
-    logger.warn("hello.js/get", "I got a bad feeling about this")
-    logger.error("hello.js/get", "This should not have happened!")
-
+    response.set('Access-Control-Allow-Origin', '*')
 
     response.send({
         message: "Hello, you sent a GET request"
@@ -36,6 +30,7 @@ router.get("/", (request, response) => {
  * @apiSuccess {String} message Hello World message
  */ 
 router.post("/", (request, response) => {
+
     response.send({
         message: "Hello, you sent a POST request"
     })

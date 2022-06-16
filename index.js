@@ -28,7 +28,9 @@ app.use('/hello', require('./routes/hello.js'))
 app.use('/params', require('./routes/params.js'))
 
 app.get("/wait", (request, response) => {
+
     setTimeout(() => {
+        response.set('Access-Control-Allow-Origin', '*')
         response.send({
             message: "Thanks for waiting"
         });
