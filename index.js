@@ -11,6 +11,13 @@ let middleware = require('./middleware')
 const validation = require('./utilities').validation
 let isStringProvided = validation.isStringProvided
 
+var cors = require('cors')
+
+
+app.options('*', cors())
+
+app.use(cors()) // Use this after the variable declaration
+
 
 /*
  * This middleware function parses JSON in the body of POST requests
@@ -66,10 +73,7 @@ app.get("/", (request, response) => {
  */
 // app.use("/doc", express.static('apidoc'))
 
-var cors = require('cors')
 
-app.use(cors()) // Use this after the variable declaration
-app.options('*', cors())
 
 /* 
 * Heroku will assign a port you can use via the 'PORT' environment variable
