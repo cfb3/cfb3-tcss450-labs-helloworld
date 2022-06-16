@@ -13,7 +13,7 @@ let isStringProvided = validation.isStringProvided
 
 
 /*
- * This middleware function parses JASOn in the body of POST requests
+ * This middleware function parses JSON in the body of POST requests
  */
 app.use(express.json())
 
@@ -61,6 +61,10 @@ app.get("/", (request, response) => {
  * https://apidocjs.com/
  */
 // app.use("/doc", express.static('apidoc'))
+
+var cors = require('cors')
+
+app.use(cors()) // Use this after the variable declaration
 
 /* 
 * Heroku will assign a port you can use via the 'PORT' environment variable

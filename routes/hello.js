@@ -24,7 +24,7 @@ router.get("/", (request, response) => {
 
 
     response.send({
-        message: "Hello, you sent a GET request from heroku git master"
+        message: "Hello, you sent a GET request"
     })
 })
 
