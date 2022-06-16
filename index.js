@@ -69,6 +69,7 @@ app.get("/", (request, response) => {
 var cors = require('cors')
 
 app.use(cors()) // Use this after the variable declaration
+app.options('*', cors())
 
 /* 
 * Heroku will assign a port you can use via the 'PORT' environment variable
