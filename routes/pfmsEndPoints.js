@@ -25,6 +25,9 @@ algorithmMap.set('Centrality via Right Eigenvector (no Edge Weight)', genClsAvgV
 
 router.post("/", (request, response) => {
 
+
+    console.log("in the end point")
+    const adjacency = request.body.adjacency
     const matrix = request.body.matrix
     const factorNames = request.body.factorNames
     const factor = request.body.factor
@@ -41,6 +44,7 @@ router.post("/", (request, response) => {
 
     
     uniqueFBLoops(
+            adjacency,
             matrix,
             factorNames,
             factor,
@@ -48,7 +52,7 @@ router.post("/", (request, response) => {
             algorithm,
             maxLoopCount)
         .then(result => {
-            console.log(result)
+            // console.log(result)
             response.set('Access-Control-Allow-Origin', '*')
             response.send({
                 message: "Got here...",
@@ -58,6 +62,7 @@ router.post("/", (request, response) => {
         .catch(error => {
             response.set('Access-Control-Allow-Origin', '*')
             response.status(400).send({
+                message: "An error occured during the algorithm.",
                 error: error
             })
         })

@@ -95,7 +95,7 @@ module.exports = {
     },
 
 
-    uniqueFBLoops:async (theArray, theFactors, theFactor, theLength, theSort, theLoopCount = 100) => {
+    uniqueFBLoops:async (theAdjacencyMatrix, theWeightedMatrix, theFactors, theFactor, theLength, theSort, theLoopCount = 100) => {
 
         let bothLoops = new SortedLinkedList(theLoopCount, (a,b) => b.strength - a.strength)
         let balancingLoops = new SortedLinkedList(theLoopCount, (a,b) => b.strength - a.strength)
@@ -105,9 +105,9 @@ module.exports = {
         function checkEdges(theVertex){
             const index = theFactors.indexOf(theVertex)
             let returnMe = []
-            for(let i = 0; i < theArray[index].length; i++) {
-                if ((parseInt(theArray[index][i]) !== 0) && index !== i) {
-                    returnMe.push({name: theFactors[i], weight:parseInt(theArray[index][i])});
+            for(let i = 0; i < theAdjacencyMatrix[index].length; i++) {
+                if ((parseInt(theAdjacencyMatrix[index][i]) !== 0) && index !== i) {
+                    returnMe.push({name: theFactors[i], weight:parseInt(theWeightedMatrix[index][i])});
                 }
             }
             return returnMe
@@ -122,14 +122,12 @@ module.exports = {
         }
 
         function vertify() {
-            let verts = []
-            theFactors.forEach((element) => {
-                verts.push({
-                    name: element,
-                    edges: [],
-                })
-            })
-            return verts
+            // //TODO remove these three lines
+            // console.log("In vertify...")
+            // let verts = theFactors.map(factor => {return {name: factor, edges: [], }})
+            // console.log(verts)
+
+            return theFactors.map(factor => {return {name: factor, edges: [], }})
         }
 
         function addEdges(theVertices) {
@@ -143,6 +141,7 @@ module.exports = {
                     })
                 }
             })
+            console.log(theVertices[2].edges)
         }
 
         let vertices = vertify()
