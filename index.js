@@ -44,7 +44,7 @@ app.get("/wait", (request, response) => {
     }, 5000)
 })
 
-app.use('/calculateLoops', require('./routes/pfms.js'))
+app.use('/calculateLoops', require('./routes/pfmsEndPoints.js'))
 
 app.use('/demosql', require('./routes/demosql.js'))
 

@@ -8,12 +8,20 @@ const logger = require('cfb3-log-package')
 
 const PFMS = require('pfms')
 
+const { genClsAvgEdgeWeight,
+        genClsTotalEdgeWeight, 
+        genClsAvgEdgeWeightProdPageRank,
+        genClsAvgEdgeWeightProdEigen,
+        genClsAvgVertexEigen,
+        uniqueFBLoops
+    } = require('../library/findloops.js')
+
 const algorithmMap = new Map()
-algorithmMap.set('Average Strength', PFMS.genClsAvgEdgeWeight)
-algorithmMap.set('Total Strength', PFMS.genClsTotalEdgeWeight)
-algorithmMap.set('Centrality via Edge Weight x Left Eigenvector', PFMS.genClsAvgEdgeWeightProdPageRank)
-algorithmMap.set('Centrality via Edge Weight x Right Eigenvector', PFMS.genClsAvgEdgeWeightProdEigen)
-algorithmMap.set('Centrality via Right Eigenvector (no Edge Weight)', PFMS.genClsAvgVertexEigen)
+algorithmMap.set('Average Strength', genClsAvgEdgeWeight)
+algorithmMap.set('Total Strength', genClsTotalEdgeWeight)
+algorithmMap.set('Centrality via Edge Weight x Left Eigenvector', genClsAvgEdgeWeightProdPageRank)
+algorithmMap.set('Centrality via Edge Weight x Right Eigenvector', genClsAvgEdgeWeightProdEigen)
+algorithmMap.set('Centrality via Right Eigenvector (no Edge Weight)', genClsAvgVertexEigen)
 
 router.post("/", (request, response) => {
 
@@ -24,15 +32,15 @@ router.post("/", (request, response) => {
     const algorithm = algorithmMap.get(request.body.algorithmName)(factorNames, matrix)
     const maxLoopCount = request.body.maxLoopCount
 
-    console.log(matrix)
-    console.log(factorNames)
-    console.log(factor)
-    console.log(maxLoopLength)
-    console.log(algorithm)
-    console.log(maxLoopCount)
+    // console.log(matrix)
+    // console.log(factorNames)
+    // console.log(factor)
+    // console.log(maxLoopLength)
+    // console.log(algorithm)
+    // console.log(maxLoopCount)
 
     
-    PFMS.uniqueFBLoops(
+    uniqueFBLoops(
             matrix,
             factorNames,
             factor,
