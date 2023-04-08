@@ -1,25 +1,28 @@
-// Obtain a Pool of DB connections.
-const pg = require("pg");
-const config = {
-  host: "450test.postgres.database.azure.comm",
-  // Do not hard code your username and password.
-  // Consider using Node environment variables.
-  user: "cfb3",
-  password: "Tnvrno11",
-  database: "sample",
-  port: 5432,
-  ssl: true,
+const mysql = require("mysql");
+const fs = require("fs");
+
+var config = {
+  host: process.env.HOST,
+  user: process.env.ADMIN,
+  password: process.env.PASSWORD,
+  database: process.env.DATABASE,
+  port: 3306,
+  ssl: {
+    ca: fs.readFileSync("./DigiCertGlobalRootCA.crt.pem"),
+  },
 };
 
-const client = new pg.Client(config);
+const conn = new mysql.createConnection(config);
 
-client.connect((err) => {
-  if (err) throw err;
-  else {
-    console.log("Connected");
+conn.connect((err) => {
+  if (err) {
+    console.log("!!! Cannot connect !!! Error:");
+    throw err;
+  } else {
+    console.log("Connection established.");
   }
 });
 
-const pool = client;
+const pool = conn;
 
 module.exports = pool;
