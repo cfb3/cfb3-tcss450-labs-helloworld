@@ -14,14 +14,14 @@ var config = {
 
 const conn = new mysql.createConnection(config);
 
-// conn.connect((err) => {
-//   if (err) {
-//     console.log("!!! Cannot connect !!! Error:");
-//     throw err;
-//   } else {
-//     console.log("Connection established.");
-//   }
-// });
+conn.connect((err) => {
+  if (err) {
+    console.log("!!! Cannot connect !!! Error:");
+    throw err;
+  } else {
+    console.log("Connection established.");
+  }
+});
 
 const pool = conn;
 
